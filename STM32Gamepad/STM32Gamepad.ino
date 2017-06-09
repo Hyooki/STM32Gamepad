@@ -10,12 +10,9 @@
 #define BUTTON_PIN4 PA8
 #define BUTTON_PIN5 PA9
 
-#define USB_PLUS  PA12
-#define USB_MINUS PA11
-
-#define ENCODER_1_PINA PB9
-#define ENCODER_1_PINB PB8
-#define ENCODER_1_BUTT PB7
+#define ENCODER_1_PINA PB3
+#define ENCODER_1_PINB PB4
+#define ENCODER_1_BUTT PB5
 
 #define LED_BUILTIN PC13
 
@@ -37,7 +34,7 @@ void setup()
 
   pinMode(ENCODER_1_BUTT, INPUT_PULLUP); attachInterrupt(ENCODER_1_BUTT, interruptENCODER_1_BUTT, CHANGE);
   pinMode(ENCODER_1_PINA, INPUT_PULLUP); attachInterrupt(ENCODER_1_PINA, interruptENCODER_1_PINA, FALLING);
-  pinMode(ENCODER_1_PINB, INPUT_PULLUP); //attachInterrupt(ENCODER_1_PINB, interruptENCODER_1_PINB, FALLING);
+  pinMode(ENCODER_1_PINB, INPUT_PULLUP); attachInterrupt(ENCODER_1_PINB, interruptENCODER_1_PINB, FALLING);
 
 
   USBDevice.beginSerialHID(&Joystick); Joystick.begin();
