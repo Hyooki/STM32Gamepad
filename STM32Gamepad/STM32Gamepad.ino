@@ -35,9 +35,10 @@ void setup()
   pinMode(BUTTON_PIN4, INPUT_PULLUP); attachInterrupt(BUTTON_PIN4, interruptBUTTON_PIN4, CHANGE);
   pinMode(BUTTON_PIN5, INPUT_PULLUP); attachInterrupt(BUTTON_PIN5, interruptBUTTON_PIN5, CHANGE);
 
-  pinMode(ENCODER_1_PINA, INPUT_PULLUP); attachInterrupt(BUTTON_PIN5, interruptENCODER_1_PINA, FALLING);
-  pinMode(ENCODER_1_PINB, INPUT_PULLUP); //attachInterrupt(BUTTON_PIN5, interruptENCODER_1_PINB, FALLING);
-  pinMode(ENCODER_1_BUTT, INPUT_PULLUP); attachInterrupt(BUTTON_PIN5, interruptENCODER_1_BUTT, CHANGE);
+  pinMode(ENCODER_1_BUTT, INPUT_PULLUP); attachInterrupt(ENCODER_1_BUTT, interruptENCODER_1_BUTT, CHANGE);
+  pinMode(ENCODER_1_PINA, INPUT_PULLUP); attachInterrupt(ENCODER_1_PINA, interruptENCODER_1_PINA, FALLING);
+  pinMode(ENCODER_1_PINB, INPUT_PULLUP); //attachInterrupt(ENCODER_1_PINB, interruptENCODER_1_PINB, FALLING);
+
 
   USBDevice.beginSerialHID(&Joystick); Joystick.begin();
 }
@@ -46,7 +47,8 @@ int previous_buttons = 0;
 
 void interruptBUTTON_PIN0()
 {
-      if (!digitalRead(BUTTON_PIN0)) 
+      delay(DEBOUNCE);
+    if (!digitalRead(BUTTON_PIN0)) 
     {
         digitalWrite(LED_BUILTIN, true);
         Joystick.setButton(0, true);
@@ -56,11 +58,12 @@ void interruptBUTTON_PIN0()
         digitalWrite(LED_BUILTIN, false);
         Joystick.setButton(0, false);
     }
-    delay(DEBOUNCE);
+
 }
 
 void interruptBUTTON_PIN1()
 {
+      delay(DEBOUNCE);
       if (!digitalRead(BUTTON_PIN1)) 
     {
         digitalWrite(LED_BUILTIN, true);
@@ -71,12 +74,12 @@ void interruptBUTTON_PIN1()
         digitalWrite(LED_BUILTIN, false);
         Joystick.setButton(1, false);
     }
-    delay(DEBOUNCE);
 }
 
 void interruptBUTTON_PIN2()
 {
-      if (!digitalRead(BUTTON_PIN2)) 
+    delay(DEBOUNCE);
+  if (!digitalRead(BUTTON_PIN2)) 
     {
         digitalWrite(LED_BUILTIN, true);
         Joystick.setButton(2, true);
@@ -86,12 +89,12 @@ void interruptBUTTON_PIN2()
         digitalWrite(LED_BUILTIN, false);
         Joystick.setButton(2, false);
     }
-    delay(DEBOUNCE);
 }
 
 
 void interruptBUTTON_PIN3()
 {
+      delay(DEBOUNCE);
       if (!digitalRead(BUTTON_PIN3)) 
     {
         digitalWrite(LED_BUILTIN, true);
@@ -102,12 +105,12 @@ void interruptBUTTON_PIN3()
         digitalWrite(LED_BUILTIN, false);
         Joystick.setButton(3, false);
     }
-    delay(DEBOUNCE);
 }
 
 void interruptBUTTON_PIN4()
 {
-      if (!digitalRead(BUTTON_PIN4)) 
+    delay(DEBOUNCE);
+  if (!digitalRead(BUTTON_PIN4)) 
     {
         digitalWrite(LED_BUILTIN, true);
         Joystick.setButton(4, true);
@@ -117,12 +120,12 @@ void interruptBUTTON_PIN4()
         digitalWrite(LED_BUILTIN, false);
         Joystick.setButton(4, false);
     }
-    delay(DEBOUNCE);
 }
 
 void interruptBUTTON_PIN5()
 {
-      if (!digitalRead(BUTTON_PIN5)) 
+    delay(DEBOUNCE);
+  if (!digitalRead(BUTTON_PIN5)) 
     {
         digitalWrite(LED_BUILTIN, true);
         Joystick.setButton(5, true);
@@ -132,7 +135,22 @@ void interruptBUTTON_PIN5()
         digitalWrite(LED_BUILTIN, false);
         Joystick.setButton(5, false);
     }
-    delay(DEBOUNCE);
+}
+
+
+void interruptENCODER_1_BUTT()
+{
+    delay(DEBOUNCE);  
+    if (!digitalRead(ENCODER_1_BUTT)) 
+    {
+        digitalWrite(LED_BUILTIN, true);
+        Joystick.setButton(6, true);
+    }
+    else
+    {
+        digitalWrite(LED_BUILTIN, false);
+        Joystick.setButton(6, false);
+    }
 }
 
 void interruptENCODER_1_PINA()
@@ -154,7 +172,8 @@ void interruptENCODER_1_PINA()
 
 void interruptENCODER_1_PINB()
 {
-    if (digitalRead(ENCODER_1_PINA))
+
+  if (digitalRead(ENCODER_1_PINA))
     {
         Joystick.setButton(7, true);
         delay(DEBOUNCE);
@@ -169,21 +188,6 @@ void interruptENCODER_1_PINB()
     
 }
 
-
-void interruptENCODER_1_BUTT()
-{
-      if (!digitalRead(ENCODER_1_BUTT)) 
-    {
-        digitalWrite(LED_BUILTIN, true);
-        Joystick.setButton(6, true);
-    }
-    else
-    {
-        digitalWrite(LED_BUILTIN, false);
-        Joystick.setButton(6, false);
-    }
-    delay(DEBOUNCE);
-}
 
 void loop() 
 {
