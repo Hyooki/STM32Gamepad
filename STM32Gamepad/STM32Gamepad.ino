@@ -173,7 +173,7 @@ void interruptENCODER_1_PINA()
 void interruptENCODER_1_PINB()
 {
 
-  if (digitalRead(ENCODER_1_PINA))
+  if (!digitalRead(ENCODER_1_PINA))
     {
         Joystick.setButton(7, true);
         delay(DEBOUNCE);
